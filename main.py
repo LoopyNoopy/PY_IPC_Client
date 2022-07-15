@@ -1,15 +1,14 @@
-import multiprocessing, os, time, UI
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import UI
+import multiprocessing
+from multiprocessing.connection import Client
 
+def IPCSetup(value):
+    IPCAddress = ('localhost',6000)
+    connection = Client(IPCAddress,authkey=b'blah')
+    connection.send(value)
+    print(value)
+    return()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-
-
-    if __name__ == "__main__":
-        # creating processes
-        multiprocessing.Process(target=UI.App).start()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    # creating processes
+    multiprocessing.Process(target=UI.App).start()
