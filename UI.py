@@ -32,7 +32,7 @@ class App():
         self.root.mainloop()
 
     def changebackground(self):
-        background = main.IPCSend("background")
+        main.IPCSend("background")
         address = ('localhost', 7000)  # family is deduced to be 'AF_INET'
         listener = Listener(address, authkey=b'blah')
         print("Waiting for response")
@@ -43,6 +43,7 @@ class App():
             msg = conn.recv()
             break
         listener.close()
+        print("Setting color too: " + str(msg))
         self.root.configure(background = msg)
         return()
 
