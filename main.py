@@ -1,14 +1,20 @@
 import UI
 import multiprocessing
 from multiprocessing.connection import Client
+from multiprocessing.connection import Listener
 
-def IPCSetup(value):
+def IPCSend(value):
     IPCAddress = ('localhost',6000)
+    global connection
     connection = Client(IPCAddress,authkey=b'blah')
     connection.send(value)
-    print(value)
+    connection.send("close")
+    connection.close()
     return()
 
 if __name__ == "__main__":
     # creating processes
-    multiprocessing.Process(target=UI.App).start()
+    UIProcess = multiprocessing.Process(target=UI.App)
+    UIProcess.start()
+    UIProcess.join()
+
